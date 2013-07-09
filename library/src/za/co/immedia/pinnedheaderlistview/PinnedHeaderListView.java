@@ -126,6 +126,7 @@ public class PinnedHeaderListView extends ListView implements OnScrollListener {
 
     private void ensurePinnedHeaderLayout(View header) {
         if (header.isLayoutRequested()) {
+            ensureLayoutParam(header);
             int widthSpec = MeasureSpec.makeMeasureSpec(getMeasuredWidth(), mWidthMode);
             
             int heightSpec;
@@ -137,6 +138,13 @@ public class PinnedHeaderListView extends ListView implements OnScrollListener {
             }
             header.measure(widthSpec, heightSpec);
             header.layout(0, 0, header.getMeasuredWidth(), header.getMeasuredHeight());
+        }
+    }
+
+    private void ensureLayoutParam(View header) {
+        if(header.getLayoutParams() == null) {
+            ViewGroup.LayoutParams param = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+            header.setLayoutParams(param);
         }
     }
 
